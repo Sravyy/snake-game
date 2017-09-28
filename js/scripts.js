@@ -9,7 +9,7 @@ function SnakePiece(container, parent) {
     snake.appendTo(container);
 
     var self = {
-      update: function () {
+      start: function () {
 
         //find new position based on current Velocity
         x += vx;
@@ -18,11 +18,11 @@ function SnakePiece(container, parent) {
         //keep snake with in the container
         if(x < 0) x = 0;                             //to stop snake when it hits the wall - top co-ordinates
         if(y < 0) y = 0;                             //to stop snake when it hits the wall - left co-ordinates
-        if(x >= BOARD_WIDTH) x = BOARD_WIDTH - 1;    //bottom
-        if(y >= BOARD_WIDTH) y = BOARD_WIDTH - 1;    //right
+        if(x >= BOARD_WIDTH) x = BOARD_WIDTH - 1;    //right
+        if(y >= BOARD_WIDTH) y = BOARD_WIDTH - 1;    //bottom
         this.moveSnake(x, y);
         this.render();
-        //move the pixel on the screen
+
 
       },
 
@@ -32,16 +32,16 @@ function SnakePiece(container, parent) {
       },
 
       moveSnake: function(_x, _y){
-        children.forEach(function(child) {child.moveSnake(x, y)});
-        x = _x;
+        children.forEach(function(child) {child.moveSnake(x, y)}); // for every child to move along with head
+        x = _x;    //updating my position with every move
         y = _y;
         this.render();
       },
 
       render:function () {
-        snake.css({
+        snake.css({                      // can be done with offest() to retrieve the current position of an element
           left: x * PIXEL_SIZE,
-          top : y * PIXEL_SIZE,
+          top : y * PIXEL_SIZE,          //to move the snake on the screen
         });
       },
 
@@ -67,8 +67,8 @@ $(function(){
 } ;
 
   setInterval(function(){
-    head.update();
-  }, 50);  //updating snake every half second
+    head.start();
+  }, 50);  //updating snake less than  half second(500 is half second)
 
   $(document.body).on("keydown", function(event){
     switch (event.which) {
