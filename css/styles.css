@@ -1,0 +1,13 @@
+.container {
+  width : 400px;
+  height: 400px;
+  border: 1px solid black;
+  position: relative;
+  background-color: black
+}
+.snake {
+  width : 5px;
+  height: 5px;
+  background: #7ee827;
+  position: absolute;
+}
